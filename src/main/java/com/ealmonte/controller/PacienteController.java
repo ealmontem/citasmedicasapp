@@ -19,12 +19,12 @@ public class PacienteController {
 
     private void initializePacientes(){
         listaPacientes.addAll(List.of(
-                        new Paciente("Maria","Almonte","01"),
-                        new Paciente("Ramon","Tolentino","02"),
-                        new Paciente("Rossy","Vasquez","03"),
-                        new Paciente("Pedro","Urbaez","04"),
-                        new Paciente("Manuel","Grullon","05"),
-                        new Paciente("Juan","Cruz","05")
+                        new Paciente("Maria","Almonte","01","333","maria@gmail.com"),
+                        new Paciente("Ramon","Tolentino","02","333","ramon@gmail.com"),
+                        new Paciente("Rossy","Vasquez","03","333","rossy@gmail.com"),
+                        new Paciente("Pedro","Urbaez","04","333","pedro@gmail.com"),
+                        new Paciente("Manuel","Grullon","05","333","manuel@gmail.com"),
+                        new Paciente("Juan","Cruz","05","333","juan@gmail.com")
         ));
     }
 
@@ -36,7 +36,7 @@ public class PacienteController {
     }
 
 
-    @GetMapping("/api/{nombre}")
+    @GetMapping("/api/nombre/{nombre}")
     public Paciente getPacienteByNombre(@PathVariable String nombre){
         for (Paciente paciente:listaPacientes){
             if (paciente.getNombre().equalsIgnoreCase(nombre)){
@@ -46,5 +46,16 @@ public class PacienteController {
         return null;
     }
 
+
+    @GetMapping("/api/nombre/{nombre}")
+    public Paciente getPacienteByNombreWithLambdas(@PathVariable String nombre){
+        return listaPacientes.stream()
+                .filter(paciente -> paciente.getNombre().equalsIgnoreCase(nombre))
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    
 
 }
