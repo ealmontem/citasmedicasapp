@@ -3,6 +3,7 @@ package com.ealmonte.controller;
 import com.ealmonte.entity.Paciente;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -19,32 +20,45 @@ public class PacienteController {
 
     private void initializePacientes(){
         listaPacientes.addAll(List.of(
-                        new Paciente("Maria","Almonte","01","333","maria@gmail.com"),
-                        new Paciente("Ramon","Tolentino","02","333","ramon@gmail.com"),
-                        new Paciente("Rossy","Vasquez","03","333","rossy@gmail.com"),
-                        new Paciente("Pedro","Urbaez","04","333","pedro@gmail.com"),
-                        new Paciente("Manuel","Grullon","05","333","manuel@gmail.com"),
-                        new Paciente("Juan","Cruz","05","333","juan@gmail.com")
+                        new Paciente("Maria","Almonte","01","333","maria@gmail.com",25),
+                        new Paciente("Ramon","Tolentino","02","333","ramon@gmail.com",25),
+                        new Paciente("Rossy","Vasquez","03","333","rossy@gmail.com",33),
+                        new Paciente("Pedro","Urbaez","04","333","pedro@gmail.com",44),
+                        new Paciente("Manuel","Grullon","05","333","manuel@gmail.com",33),
+                        new Paciente("Juan","Cruz","05","333","juan@gmail.com",21)
         ));
     }
 
 
 
-    @GetMapping("/api")
-    public List<Paciente> list(){
-        return listaPacientes;
-    }
+    @GetMapping("/api/pacientes")
+    public List<Paciente> getPacienteByCategory(@RequestParam(required = false) Integer edad){
+        if (edad == null ){
+            return listaPacientes;
+        }
 
 
-    @GetMapping("/api/nombre/{nombre}")
-    public Paciente getPacienteByNombre(@PathVariable String nombre){
+        List<Paciente> pacientesFiltrados = new ArrayList<>();
         for (Paciente paciente:listaPacientes){
-            if (paciente.getNombre().equalsIgnoreCase(nombre)){
-                return paciente;
+            if (paciente.getEdad() == edad){
+                pacientesFiltrados.add(paciente);
             }
         }
-        return null;
+
+
+        return pacientesFiltrados;
     }
+
+
+//    @GetMapping("/api/nombre/{nombre}")
+//    public Paciente getPacienteByNombre(@PathVariable String nombre){
+//        for (Paciente paciente:listaPacientes){
+//            if (paciente.getNombre().equalsIgnoreCase(nombre)){
+//                return paciente;
+//            }
+//        }
+//        return null;
+//    }
 
 
     @GetMapping("/api/nombre/{nombre}")

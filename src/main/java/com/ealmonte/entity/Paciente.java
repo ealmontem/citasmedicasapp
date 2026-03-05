@@ -7,14 +7,18 @@ public class Paciente {
     private String cedula;
     private String telefono;
     private String email;
+    private int edad;
 
+    public Paciente() {
+    }
 
-    public Paciente(String nombre, String apellido, String cedula, String telefono, String email) {
+    public Paciente(String nombre, String apellido, String cedula, String telefono, String email, int edad) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
         this.telefono = telefono;
         this.email = email;
+        this.edad = edad;
     }
 
     public String getNombre() {
@@ -55,5 +59,25 @@ public class Paciente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", email='" + email + '\'' +
+                ", edad=" + edad +
+                '}';
     }
 }
