@@ -30,23 +30,16 @@ public class PacienteController {
     }
 
 
-
     @GetMapping("/api/pacientes")
-    public List<Paciente> getPacienteByCategory(@RequestParam(required = false) Integer edad){
-        if (edad == null ){
+    public List<Paciente> getPacienteByEdad(@RequestParam(required = false) int edad){
+
+        if (edad == 0 ){
             return listaPacientes;
         }
-
-
         List<Paciente> pacientesFiltrados = new ArrayList<>();
-        for (Paciente paciente:listaPacientes){
-            if (paciente.getEdad() == edad){
-                pacientesFiltrados.add(paciente);
-            }
-        }
-
-
-        return pacientesFiltrados;
+        return listaPacientes.stream()
+                .filter(paciente -> paciente.getEdad()==edad)
+                .toList();
     }
 
 
